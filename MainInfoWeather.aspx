@@ -54,6 +54,9 @@
         <br />
         <asp:Button ID="ButtonBestCity" runat="server" OnClick="ButtonBestCity_Click" Text="Best City" />
     
+        <br />
+        <asp:Label ID="LabelBestCityTemp" runat="server" Text="Best city"></asp:Label>
+    
     </div>
     </form>
 </body>

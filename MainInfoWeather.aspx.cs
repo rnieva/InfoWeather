@@ -180,6 +180,9 @@ namespace InfoWeather
             string temperatureToComp = LabelTemperature.Text;
             string location = null;
             string temperature = null;
+            string locationBest = null;
+            string temperatureBest = null;
+            decimal temperatureBesttemp = -100; //reference
             List<string> cityList = new List<string>();
             int i = 0;
             //get the list of cities of selected country
@@ -220,6 +223,13 @@ namespace InfoWeather
                             if (node.Name == "Temperature")
                             {
                                 temperature = node.InnerText;
+                                decimal temperatured = Convert.ToDecimal(temperature.Substring(temperature.IndexOf("(") + 1, temperature.IndexOf(")") - temperature.IndexOf("(") - 3));
+                                if (temperatured >= temperatureBesttemp)
+                                {
+                                    temperatureBesttemp = temperatured;
+                                    temperatureBest = temperature;
+                                    locationBest = location;
+                                }
                             }
 
                         }
@@ -231,7 +241,7 @@ namespace InfoWeather
                     LabelTest.Text = "Data Not Found";
                 }
             }
-            
+            LabelBestCityTemp.Text = "Best Temperature City: <span style='font-weight: bold;'>"+ temperatureBest +"</span>"  + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
         }
     }
 }
