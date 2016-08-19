@@ -177,15 +177,23 @@ namespace InfoWeather
 
         protected void ButtonBestCity_Click(object sender, EventArgs e)
         {
-            string temperatureToComp = LabelTemperature.Text;
+            string parameterToComp = null;
+           
             string location = null;
-            string temperature = null;
             string locationBest = null;
+
+
+            string temperature = null;
             string temperatureBest = null;
-            decimal temperatureBesttemp = -100; //reference
+            decimal temperatureBestDecimal = -100; //reference
+
+            string wind = null;
+            string windbest = null;
+            decimal windBestDecimal = -1;
+
+            //get the list of cities of selected country
             List<string> cityList = new List<string>();
             int i = 0;
-            //get the list of cities of selected country
             ServiceReference1.GlobalWeatherSoapClient soapService = new ServiceReference1.GlobalWeatherSoapClient("GlobalWeatherSoap");
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(soapService.GetCitiesByCountry(DropDownList1SelectCountry.SelectedValue));
@@ -220,15 +228,50 @@ namespace InfoWeather
                             {
                                 location = node.InnerText;
                             }
-                            if (node.Name == "Temperature")
+                            if (node.Name == DropDownListParameterToCompa.SelectedValue)
                             {
-                                temperature = node.InnerText;
-                                decimal temperatured = Convert.ToDecimal(temperature.Substring(temperature.IndexOf("(") + 1, temperature.IndexOf(")") - temperature.IndexOf("(") - 3));
-                                if (temperatured >= temperatureBesttemp)
+                                switch (DropDownListParameterToCompa.SelectedValue)
                                 {
-                                    temperatureBesttemp = temperatured;
-                                    temperatureBest = temperature;
-                                    locationBest = location;
+                                    case "Temperature":
+                                        parameterToComp = LabelTemperature.Text;
+
+                                        temperature = node.InnerText; //format -->  <Temperature> 59 F (15 C)</Temperature>
+                                        decimal temperatureDecimal = Convert.ToDecimal(temperature.Substring(temperature.IndexOf("(") + 1, temperature.IndexOf(")") - temperature.IndexOf("(") - 3));
+                                        if (temperatureDecimal >= temperatureBestDecimal)
+                                        {
+                                            temperatureBestDecimal = temperatureDecimal;
+                                            temperatureBest = temperature;
+                                            locationBest = location;
+                                        }
+                                        break;
+                                    case "Wind":
+                                        parameterToComp = LabelWind.Text;
+
+                                        wind = node.InnerText; //format --> <Wind> from the E (100 degrees) at 6 MPH (5 KT):0</Wind>
+                                        wind = wind.Substring(wind.Length - 12);
+                                        decimal windDecimal = Convert.ToDecimal(wind.Substring(wind.IndexOf("(") + 1, wind.IndexOf(")") - wind.IndexOf("(") - 3));
+                                        if (windDecimal >= windBestDecimal)
+                                        {
+                                            windBestDecimal = windDecimal;
+                                            windbest = wind;
+                                            locationBest = location;
+                                        }
+                                        break;
+                                    case "Visibility":
+                                        parameterToComp = LabelVisibility.Text;
+                                        break;
+                                    case "DewPoint":
+                                        parameterToComp = LabelDewPoint.Text;
+                                        break;
+                                    case "RelativeHumidity":
+                                        parameterToComp = LabelRelativeHumidity.Text;
+                                        break;
+                                    case "Pressure":
+                                        parameterToComp = LabelPressure.Text;
+                                        break;
+                                    default:
+                                        LabelTest.Text = "wrong parameterToComp";
+                                        break;
                                 }
                             }
 
@@ -241,7 +284,8 @@ namespace InfoWeather
                     LabelTest.Text = "Data Not Found";
                 }
             }
-            LabelBestCityTemp.Text = "Best Temperature City: <span style='font-weight: bold;'>"+ temperatureBest +"</span>"  + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+            //LabelBestCityTemp.Text = "Best Temperature City: <span style='font-weight: bold;'>"+ temperatureBest +"</span>"  + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+            LabelBestCityTemp.Text = "Best Temperature City: <span style='font-weight: bold;'>" + windbest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
         }
     }
 }

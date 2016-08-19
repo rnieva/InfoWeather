@@ -157,6 +157,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.Label LabelTest;
         
         /// <summary>
+        /// DropDownListParameterToCompa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListParameterToCompa;
+        
+        /// <summary>
         /// ButtonBestCity control.
         /// </summary>
         /// <remarks>

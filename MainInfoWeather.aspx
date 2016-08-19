@@ -52,7 +52,16 @@
         <asp:Label ID="LabelTest" runat="server" Text="LabelTest"></asp:Label>
         <br />
         <br />
+        <asp:DropDownList ID="DropDownListParameterToCompa" runat="server">
+            <asp:ListItem>Temperature</asp:ListItem>
+            <asp:ListItem>Wind</asp:ListItem>
+            <asp:ListItem>DewPoint</asp:ListItem>
+            <asp:ListItem>RelativeHumidity</asp:ListItem>
+            <asp:ListItem>Pressure</asp:ListItem>
+        </asp:DropDownList>
         <asp:Button ID="ButtonBestCity" runat="server" OnClick="ButtonBestCity_Click" Text="Best City" />
+    
+        <br />
     
         <br />
         <asp:Label ID="LabelBestCityTemp" runat="server" Text="Best city"></asp:Label>
