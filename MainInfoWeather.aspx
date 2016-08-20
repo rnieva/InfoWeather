@@ -55,6 +55,7 @@
         <asp:DropDownList ID="DropDownListParameterToCompa" runat="server">
             <asp:ListItem>Temperature</asp:ListItem>
             <asp:ListItem>Wind</asp:ListItem>
+            <asp:ListItem>Visibility</asp:ListItem>
             <asp:ListItem>DewPoint</asp:ListItem>
             <asp:ListItem>RelativeHumidity</asp:ListItem>
             <asp:ListItem>Pressure</asp:ListItem>
