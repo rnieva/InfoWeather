@@ -22,13 +22,22 @@ namespace InfoWeather {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Label1 control.
+        /// Table1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Table Table1;
+        
+        /// <summary>
+        /// TableRow1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow1;
         
         /// <summary>
         /// DropDownList1SelectSource control.
@@ -40,6 +49,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1SelectSource;
         
         /// <summary>
+        /// TableRow2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow2;
+        
+        /// <summary>
         /// DropDownList1SelectCountry control.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,15 @@ namespace InfoWeather {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1SelectCountry;
+        
+        /// <summary>
+        /// TableRow3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow3;
         
         /// <summary>
         /// DropDownList2SelectCity control.
@@ -58,6 +85,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2SelectCity;
         
         /// <summary>
+        /// TableRow4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow4;
+        
+        /// <summary>
         /// Button1GetInfoWeather control.
         /// </summary>
         /// <remarks>
@@ -65,6 +101,15 @@ namespace InfoWeather {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1GetInfoWeather;
+        
+        /// <summary>
+        /// TableRow5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow5;
         
         /// <summary>
         /// LabelLocation control.
@@ -148,6 +193,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.Label LabelPressure;
         
         /// <summary>
+        /// TableRow6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow6;
+        
+        /// <summary>
         /// LabelTest control.
         /// </summary>
         /// <remarks>
@@ -155,6 +209,15 @@ namespace InfoWeather {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelTest;
+        
+        /// <summary>
+        /// TableRow7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow7;
         
         /// <summary>
         /// DropDownListParameterToCompa control.
@@ -182,5 +245,14 @@ namespace InfoWeather {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelBestCityTemp;
+        
+        /// <summary>
+        /// TableRow8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow8;
     }
 }

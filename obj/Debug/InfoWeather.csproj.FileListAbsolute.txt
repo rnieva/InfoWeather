@@ -18,3 +18,5 @@ c:\Users\Rob\Documents\Visual Studio 2015\Projects\InfoWeather\InfoWeather\bin\M
 c:\Users\Rob\Documents\Visual Studio 2015\Projects\InfoWeather\InfoWeather\obj\Debug\InfoWeather.csprojResolveAssemblyReference.cache
 c:\Users\Rob\Documents\Visual Studio 2015\Projects\InfoWeather\InfoWeather\obj\Debug\InfoWeather.dll
 c:\Users\Rob\Documents\Visual Studio 2015\Projects\InfoWeather\InfoWeather\obj\Debug\InfoWeather.pdb
+C:\Users\Rob\documents\visual studio 2015\Projects\InfoWeather\InfoWeather\bin\Newtonsoft.Json.dll
+C:\Users\Rob\documents\visual studio 2015\Projects\InfoWeather\InfoWeather\bin\Newtonsoft.Json.xml

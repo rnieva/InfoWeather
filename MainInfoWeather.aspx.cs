@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,24 +9,24 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace InfoWeather
 {
     public partial class MainInfoWeather : System.Web.UI.Page
-    {
+    { 
         public StringBuilder info1 = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DropDownList1SelectSource.Items.Add("Global Weather");
-                DropDownList1SelectSource.Items.Add("Site2");
+                DropDownList1SelectSource.Items.Add("Weather Underground");
+                DropDownList1SelectSource.Items.Add("site3");
                 DropDownList1SelectSource.SelectedValue = "Global Weather";
             }
-            if (DropDownList1SelectSource.SelectedValue == "Global Weather")
-            {
-                CountryDropList1(null, new EventArgs());
-            }
+            CountryDropList1(null, new EventArgs());  //Load list of Countries and leter list of cities
         }
         protected void CountryDropList1(object sender, EventArgs e)
         {
@@ -81,6 +82,18 @@ namespace InfoWeather
         }
 
         protected void GetInfoWeather(object sender, EventArgs e)
+        {
+            if (DropDownList1SelectSource.SelectedValue == "Global Weather")
+            {
+                GetInfoGlobalWeather();
+            }
+            if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
+            {
+                GetInfoWeatherUnderground();
+            }
+        }
+
+        protected void GetInfoGlobalWeather()
         {
             string location = null;
             string time = null;
@@ -174,9 +187,10 @@ namespace InfoWeather
             LabelDewPoint.Text = "";
             LabelRelativeHumidity.Text = "";
             LabelPressure.Text = "";
+            LabelTest.Text = "";
         }
 
-        protected void ButtonBestCity_Click(object sender, EventArgs e)
+        protected void ButtonBestCity_Click(object sender, EventArgs e) //At the moment just with GlobalWeather
         {
             string parameterToComp = null;
             string location = null;
@@ -320,6 +334,24 @@ namespace InfoWeather
             //LabelBestCityTemp.Text = "Most Relative Humidity City: <span style='font-weight: bold;'>" + relativeHumidityBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
             //LabelBestCityTemp.Text = "Most Pressure City: <span style='font-weight: bold;'>" + pressureBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
             LabelBestCityTemp.Text = "Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+        }
+        protected void GetInfoWeatherUnderground()
+        {
+            string key = "";
+            string info = ("http://api.wunderground.com/api/" + key + "/conditions/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue) + ".json";
+            var client = new WebClient();
+            string jsonWeatherData = client.DownloadString(info);
+            JObject infoP = JObject.Parse(jsonWeatherData);
+            LabelLocation.Text = "Location: " + infoP["current_observation"]["display_location"]["full"];
+            LabelTime.Text = "Time: " + infoP["current_observation"]["local_time_rfc822"];
+            LabelWind.Text = "Wind: " + infoP["current_observation"]["wind_string"];
+            LabelVisibility.Text = "Visibility: " + infoP["current_observation"]["visibility_km"];
+            LabelSkyConditions.Text = "SkyConditions: " + infoP["current_observation"]["weather"];
+            LabelTemperature.Text = "Temperature: " + infoP["current_observation"]["temperature_string"];
+            LabelDewPoint.Text = "DewPoint: " + infoP["current_observation"]["dewpoint_string"];
+            LabelRelativeHumidity.Text = "RelativeHumidity: " + infoP["current_observation"]["relative_humidity"];
+            LabelPressure.Text = "Pressure: " + infoP["current_observation"]["pressure_mb"];
+
         }
     }
 }
