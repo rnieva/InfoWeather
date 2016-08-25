@@ -5,6 +5,6 @@
  Notes:
  - Added maxReceivedMessageSize="20000000" in Web.config for get the info.
  - Set AutoPostBack= True in Properties of DropList for the index changed.
- - Using Newtonsoft NuGet package for Json.NET 9.0.1
+ - Using Newtonsoft NuGet package for Json.NET 9.0.1.
  
  not finshed
