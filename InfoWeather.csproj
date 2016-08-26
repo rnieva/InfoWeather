@@ -72,6 +72,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="imgs\cloudy.png" />
+    <Content Include="imgs\m-c-rain.png" />
+    <Content Include="imgs\m-cloudy.png" />
+    <Content Include="imgs\rainy.png" />
+    <Content Include="imgs\snow.png" />
+    <Content Include="imgs\sunny.png" />
+    <Content Include="imgs\wind.png" />
     <Content Include="MainInfoWeather.aspx" />
     <Content Include="packages.config" />
     <None Include="Service References\ServiceReference1\globalweather.wsdl" />
@@ -112,6 +119,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

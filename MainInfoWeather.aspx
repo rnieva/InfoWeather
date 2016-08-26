@@ -98,7 +98,8 @@
                             <asp:Label ID="LabelPressure" runat="server" Text="Pressure"></asp:Label>
                             <br />
                 </asp:TableCell>
-                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImgSkyConditions" runat="server" style="width:50px;height:50px;" /></asp:TableCell>
                 <asp:TableCell></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow 
