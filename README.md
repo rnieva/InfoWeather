@@ -6,7 +6,8 @@
  - Set AutoPostBack = True in Properties of DropList for the index changed.
  - Using Newtonsoft NuGet package for Json.NET 9.0.1.
  - Using API and some icons from "Wheater Undergroup" for get data wetaher.
- - Using Web Service Global Wether from WebServicex.net for get list of countries/cities and data weather.
+ - Using Web Service Global Weather from WebServicex.net for get list of countries/cities and data weather.
+ - 
  
 
  not finshed
