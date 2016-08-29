@@ -15,7 +15,9 @@ using Newtonsoft.Json.Linq;
 namespace InfoWeather
 {
     public partial class MainInfoWeather : System.Web.UI.Page
-    { 
+    {
+
+        public string key = ""; //key for WU
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,6 +26,9 @@ namespace InfoWeather
                 DropDownList1SelectSource.Items.Add("Weather Underground");
                 DropDownList1SelectSource.SelectedValue = "Global Weather";
             }
+            ImgSkyConditions.Visible = false;
+            ImgMap.Visible = false;
+            ChangeImgLogo(null, new EventArgs());       // Load the Data Source Logo
             CountryDropList1(null, new EventArgs());  //Load list of Countries and leter list of cities
         }
         protected void CountryDropList1(object sender, EventArgs e)
@@ -79,6 +84,17 @@ namespace InfoWeather
             }
         }
 
+        protected void ChangeImgLogo(object sender, EventArgs e)
+        {
+            if (DropDownList1SelectSource.SelectedValue == "Global Weather")
+            {
+                ImageLogoUW.ImageUrl = ("/imgs/infoWeatherLogo_1.png");
+            }
+            if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
+            {
+                ImageLogoUW.ImageUrl = "https://icons.wxug.com/logos/PNG/wundergroundLogo_4c.png";
+            }
+        }
         protected void GetInfoWeather(object sender, EventArgs e)
         {
             if (DropDownList1SelectSource.SelectedValue == "Global Weather")
@@ -168,7 +184,7 @@ namespace InfoWeather
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Data Not Found");
+                System.Diagnostics.Debug.WriteLine("Data Not Found",ex);
                 LabelTest.Text = "Data Not Found";
             }
         }
@@ -185,10 +201,23 @@ namespace InfoWeather
             LabelRelativeHumidity.Text = "";
             LabelPressure.Text = "";
             LabelTest.Text = "";
-            ImgSkyConditions.ImageUrl = "";
+            ImgSkyConditions.Visible = false;
+            ImgMap.Visible = false;
+            ImgForescast1.Visible = false;
+            ImgForescast12.Visible = false;
+            ImgForescast2.Visible = false;
+            ImgForescast21.Visible = false;
+            ImgForescast3.Visible = false;
+            ImgForescast31.Visible = false;
+            LabelForecast1.Text = "";
+            LabelForecast12.Text = "";
+            LabelForecast2.Text = "";
+            LabelForecast21.Text = "";
+            LabelForecast3.Text = "";
+            LabelForecast31.Text = "";
         }
 
-        protected void ButtonBestCity_Click(object sender, EventArgs e) 
+        protected void ButtonBestCity_Click(object sender, EventArgs e)
         {
             string parameterToComp = null;
             string location = null;
@@ -214,6 +243,7 @@ namespace InfoWeather
             //store and compare the temperature with the rest of cities
             if (DropDownList1SelectSource.SelectedValue == "Global Weather")
             {
+                ImageLogoUW.ImageUrl = "";
                 for (i = 0; i < cityList.Count; i++)
                 {
                     string xmlInfo = soapService.GetWeather(cityList[i], DropDownList1SelectCountry.SelectedValue);
@@ -323,15 +353,14 @@ namespace InfoWeather
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine("Data Not Found Best city GW");
+                        System.Diagnostics.Debug.WriteLine("Data Not Found Best city GW", ex);
                     }
                 }
                 if (parameterBest != null)
-                     LabelBestCityTemp.Text = "Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+                    LabelBestCityTemp.Text = "Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
             } //end if (DropDownList1SelectSource.SelectedValue == "Global Weather)
             if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
             {
-                string key = "";
                 for (i = 0; i < cityList.Count; i++)
                 {
                     string info = ("http://api.wunderground.com/api/" + key + "/conditions/q/" + DropDownList1SelectCountry.SelectedValue + "/" + cityList[i]) + ".json";
@@ -368,7 +397,7 @@ namespace InfoWeather
                                 {
                                     parameterBestDecimal = windDecimal;
                                     parameterBest = parameter;
-                                    locationBest = (string)infoP["current_observation"]["display_location"]["full"]; 
+                                    locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
                             catch (Exception)
@@ -389,8 +418,9 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
+                                System.Diagnostics.Debug.WriteLine(ex);
                                 LabelTest.Text = "Data Not Found best city";
                             }
                             break;
@@ -407,8 +437,9 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
+                                System.Diagnostics.Debug.WriteLine(ex);
                                 LabelTest.Text = "Data Not Found best city";
                             }
                             break;
@@ -460,7 +491,6 @@ namespace InfoWeather
 
         protected void GetInfoWeatherUnderground()
         {
-            string key = "";
             string info = ("http://api.wunderground.com/api/" + key + "/conditions/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue) + ".json";
             var client = new WebClient();
             string jsonWeatherData = client.DownloadString(info);
@@ -472,29 +502,37 @@ namespace InfoWeather
                 LabelWind.Text = "Wind: " + infoP["current_observation"]["wind_string"];
                 LabelVisibility.Text = "Visibility: " + infoP["current_observation"]["visibility_km"];
                 LabelSkyConditions.Text = "SkyConditions: " + infoP["current_observation"]["weather"];
+                if (((string)infoP["current_observation"]["weather"]) != null)
+                    ImgSkyConditions.Visible = true;
+                if (((string)infoP["current_observation"]["display_location"]["full"]) != null)
+                {
+                    ImgMap.Visible = true;
+                    //ImgMap.ImageUrl = "http://api.wunderground.com/api/" + key + "/radar/satellite/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue + ".gif"; //radar + satellite imagen without animated 
+                    ImgMap.ImageUrl = "http://api.wunderground.com/api/" + key + "/animatedradar/animatedsatellite/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue + ".gif?num=6&delay=50&interval=30";
+                }
                 switch ((string)infoP["current_observation"]["weather"])
                 {
                     case "Clear":
-                    ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/clear.gif";
-                    break;
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/clear.gif";
+                        break;
                     case "Sunny":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/clear.gif";
                         break;
                     case "Drizzle":
-                    ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/chancesleet.gif";
-                    break;
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/chancesleet.gif";
+                        break;
                     case "Mostly Cloudy":
-                    ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/mostlycloudy.gif";
-                    break; 
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/mostlycloudy.gif";
+                        break;
                     case "Partly Cloudy":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/partlycloudy.gif";
-                    break;
+                        break;
                     case "Mostly Sunny":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/mostlysunny.gif";
-                    break;
+                        break;
                     case "Flurries":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/flurries.gif";
-                    break;
+                        break;
                     case "Chance Sleet":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/chancesleet.gif";
                         break;
@@ -512,26 +550,79 @@ namespace InfoWeather
                         break;
                     case "Chance Tstorms":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/chancetstorms.gif";
-                        break; 
-                     case "Nt Clear":
+                        break;
+                    case "Nt Clear":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/nt_clear.gif";
                         break;
                     case "Nt Sunny":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/j/nt_sunny.gif";
                         break;
+                    case "Overcast":
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/i/cloudy.gif";
+                        break;
+                    case "Cloudy":
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/i/cloudy.gif";
+                        break;
                     default:
                         System.Diagnostics.Debug.WriteLine("Not img");
                         break;
                 }
-                
+
                 LabelTemperature.Text = "Temperature: " + infoP["current_observation"]["temperature_string"];
                 LabelDewPoint.Text = "DewPoint: " + infoP["current_observation"]["dewpoint_string"];
                 LabelRelativeHumidity.Text = "RelativeHumidity: " + infoP["current_observation"]["relative_humidity"];
                 LabelPressure.Text = "Pressure: " + infoP["current_observation"]["pressure_mb"];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex);
                 LabelTest.Text = "Data Not Found";
+            }
+        }
+        protected void ButtonForecast_Click(object sender, EventArgs e)
+        {
+            if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
+            {
+                string info = ("http://api.wunderground.com/api/" + key + "/forecast/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue) + ".json";
+                var client = new WebClient();
+                string jsonWeatherData = client.DownloadString(info);
+                JObject infoP = JObject.Parse(jsonWeatherData);
+                try
+                {
+                    ImgForescast1.Visible = true;
+                    ImgForescast12.Visible = true;
+                    ImgForescast2.Visible = true;
+                    ImgForescast21.Visible = true;
+                    ImgForescast3.Visible = true;
+                    ImgForescast31.Visible = true;
+                    LabelForecast1.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][0]["title"];
+                    LabelForecast12.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][1]["title"];
+                    LabelForecast2.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][2]["title"];
+                    LabelForecast21.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][3]["title"];
+                    LabelForecast3.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][4]["title"];
+                    LabelForecast31.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][5]["title"];
+                    string link1 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][0]["icon_url"];
+                    ImgForescast1.ImageUrl = link1;
+                    string link12 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][1]["icon_url"];
+                    ImgForescast12.ImageUrl = link12;
+                    string link2 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][2]["icon_url"];
+                    ImgForescast2.ImageUrl = link2;
+                    string link21 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][3]["icon_url"];
+                    ImgForescast21.ImageUrl = link21;
+                    string link3 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][4]["icon_url"];
+                    ImgForescast3.ImageUrl = link3;
+                    string link31 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][5]["icon_url"];
+                    ImgForescast31.ImageUrl = link31;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                    LabelTest.Text = "Data Not Found";
+                }
+            }
+            else
+            {
+                LabelTest.Text = "This source don´t have this service";
             }
         }
     }

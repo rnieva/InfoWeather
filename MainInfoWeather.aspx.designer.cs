@@ -49,6 +49,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1SelectSource;
         
         /// <summary>
+        /// ImageLogoUW control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageLogoUW;
+        
+        /// <summary>
         /// TableRow2 control.
         /// </summary>
         /// <remarks>
@@ -202,6 +211,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.Image ImgSkyConditions;
         
         /// <summary>
+        /// ImgMap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgMap;
+        
+        /// <summary>
         /// TableRow6 control.
         /// </summary>
         /// <remarks>
@@ -256,6 +274,15 @@ namespace InfoWeather {
         protected global::System.Web.UI.WebControls.Label LabelBestCityTemp;
         
         /// <summary>
+        /// ButtonForecast control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonForecast;
+        
+        /// <summary>
         /// TableRow8 control.
         /// </summary>
         /// <remarks>
@@ -263,5 +290,167 @@ namespace InfoWeather {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableRow TableRow8;
+        
+        /// <summary>
+        /// LabelForecast1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast1;
+        
+        /// <summary>
+        /// ImgForescast1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast1;
+        
+        /// <summary>
+        /// TableRow9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow9;
+        
+        /// <summary>
+        /// LabelForecast12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast12;
+        
+        /// <summary>
+        /// ImgForescast12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast12;
+        
+        /// <summary>
+        /// TableRow10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow10;
+        
+        /// <summary>
+        /// LabelForecast2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast2;
+        
+        /// <summary>
+        /// ImgForescast2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast2;
+        
+        /// <summary>
+        /// TableRow11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow11;
+        
+        /// <summary>
+        /// LabelForecast21 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast21;
+        
+        /// <summary>
+        /// ImgForescast21 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast21;
+        
+        /// <summary>
+        /// TableRow12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow12;
+        
+        /// <summary>
+        /// LabelForecast3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast3;
+        
+        /// <summary>
+        /// ImgForescast3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast3;
+        
+        /// <summary>
+        /// TableRow13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow13;
+        
+        /// <summary>
+        /// LabelForecast31 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelForecast31;
+        
+        /// <summary>
+        /// ImgForescast31 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgForescast31;
+        
+        /// <summary>
+        /// TableRow14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableRow TableRow14;
     }
 }

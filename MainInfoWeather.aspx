@@ -6,15 +6,15 @@
 <head runat="server">
     <title></title>
 </head>
-<body style="height: 664px">
+<body style="height: 1084px; width: 958px;">
     <form id="form1" runat="server">
-    <div style="height: 685px">
+    <div style="height: 1087px; width: 963px;">
         Info Weather
         
         <asp:Table ID="Table1" 
             runat="server" 
             Font-Size="" 
-            Width="786px" 
+            Width="903px" 
             Font-Names="Times New Roman"
             BackColor=""
             BorderColor="black"
@@ -27,12 +27,13 @@
                 ID="TableRow1" 
                 runat="server" 
                 BackColor=""
-                >
+                BorderStyle="Ridge">
                 <asp:TableCell>Select Source Weather:  
-                        <asp:DropDownList ID="DropDownList1SelectSource" runat="server">
+                        <asp:DropDownList ID="DropDownList1SelectSource" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ChangeImgLogo">
                         </asp:DropDownList>
                 </asp:TableCell>
-                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImageLogoUW" runat="server" style="width:107px;height:72px;" BorderWidth="0px" BorderStyle="None" /></asp:TableCell>
                 <asp:TableCell></asp:TableCell>
             </asp:TableRow>
             <asp:TableRow 
@@ -99,8 +100,11 @@
                             <br />
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:Image ID="ImgSkyConditions" runat="server" style="width:50px;height:50px;" /></asp:TableCell>
-                <asp:TableCell></asp:TableCell>
+                    <asp:Image ID="ImgSkyConditions" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImgMap" runat="server" style="width:150px;height:150px;" BorderWidth="0px" />
+                </asp:TableCell>
             </asp:TableRow>
             <asp:TableRow 
                 ID="TableRow6" 
@@ -131,11 +135,93 @@
                     <br />
                     <asp:Label ID="LabelBestCityTemp" runat="server" Text="Best city"></asp:Label>
                 </asp:TableCell>
-                <asp:TableCell></asp:TableCell>
-                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Button ID="ButtonForecast" runat="server" OnClick="ButtonForecast_Click" Text="Forecast" />
+                </asp:TableCell>
+                <asp:TableCell>
+                    
+                </asp:TableCell>
             </asp:TableRow>
             <asp:TableRow 
                 ID="TableRow8" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label ID="LabelForecast1" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImgForescast1" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow9" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                    <asp:Label ID="LabelForecast12" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImgForescast12" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow10" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                     <asp:Label ID="LabelForecast2" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell> 
+                    <asp:Image ID="ImgForescast2" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow11" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                     <asp:Label ID="LabelForecast21" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell>
+                     <asp:Image ID="ImgForescast21" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow12" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                     <asp:Label ID="LabelForecast3" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell>
+                    <asp:Image ID="ImgForescast3" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow13" 
+                runat="server" 
+                BackColor=""
+                >
+                <asp:TableCell></asp:TableCell>
+                <asp:TableCell>
+                     <asp:Label ID="LabelForecast31" runat="server" Text="Label"></asp:Label>
+                </asp:TableCell>
+                <asp:TableCell>
+                     <asp:Image ID="ImgForescast31" runat="server" style="width:60px;height:70px;" BorderWidth="0px" />
+                </asp:TableCell>
+            </asp:TableRow>
+            <asp:TableRow 
+                ID="TableRow14" 
                 runat="server" 
                 BackColor=""
                 >
