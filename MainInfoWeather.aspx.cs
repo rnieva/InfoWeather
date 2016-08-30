@@ -26,6 +26,8 @@ namespace InfoWeather
                 DropDownList1SelectSource.Items.Add("Weather Underground");
                 DropDownList1SelectSource.SelectedValue = "Global Weather";
             }
+            CleanLabels(null, new EventArgs());
+            LabelTest.ForeColor = System.Drawing.Color.Red;
             ImgSkyConditions.Visible = false;
             ImgMap.Visible = false;
             ChangeImgLogo(null, new EventArgs());       // Load the Data Source Logo
@@ -33,7 +35,6 @@ namespace InfoWeather
         }
         protected void CountryDropList1(object sender, EventArgs e)
         {
-            CleanLabels(null, new EventArgs());
             if (!IsPostBack)
             {   // added maxReceivedMessageSize="20000000" in Web.config
                 // set to True the property AutoPostBack for refresh the DropDownList2SelectCity and Event CityDropList1
@@ -58,7 +59,6 @@ namespace InfoWeather
 
         protected void CityDropList1(object sender, System.EventArgs e)
         {
-            CleanLabels(null, new EventArgs());
             if (this.DropDownList1SelectCountry.SelectedItem != null)
             {
                 List<string> cityList = new List<string>();
@@ -137,32 +137,32 @@ namespace InfoWeather
                         if (node.Name == "Location")
                         {
                             location = node.InnerText;
-                            LabelLocation.Text = "Location: " + location;
+                            LabelLocation.Text = "<span style='font-weight: bold;'>Location:</span> " + location;
                         }
                         if (node.Name == "Time")
                         {
                             time = node.InnerText;
-                            LabelTime.Text = "Time: " + time;
+                            LabelTime.Text = "<span style='font-weight: bold;'>Time:</span> " + time;
                         }
                         if (node.Name == "Wind")
                         {
                             wind = node.InnerText;
-                            LabelWind.Text = "Wind: " + wind;
+                            LabelWind.Text = "<span style='font-weight: bold;'>Wind:</span> " + wind;
                         }
                         if (node.Name == "Visibility")
                         {
                             visibility = node.InnerText;
-                            LabelVisibility.Text = "Visibility: " + visibility;
+                            LabelVisibility.Text = "<span style='font-weight: bold;'>Visibility:</span> " + visibility;
                         }
                         if (node.Name == "SkyConditions")
                         {
                             skyconditions = node.InnerText;
-                            LabelSkyConditions.Text = "SkyConditions: " + skyconditions;
+                            LabelSkyConditions.Text = "<span style='font-weight: bold;'>SkyConditions:</span> " + skyconditions;
                         }
                         if (node.Name == "Temperature")
                         {
                             temperature = node.InnerText;
-                            LabelTemperature.Text = "Temperature: " + temperature;
+                            LabelTemperature.Text = "<span style='font-weight: bold;'>Temperature:</span> " + temperature;
                         }
                         if (node.Name == "DewPoint")
                         {
@@ -172,12 +172,12 @@ namespace InfoWeather
                         if (node.Name == "RelativeHumidity")
                         {
                             RelativeHumidity = node.InnerText;
-                            LabelRelativeHumidity.Text = "RelativeHumidity: " + RelativeHumidity;
+                            LabelRelativeHumidity.Text = "<span style='font-weight: bold;'>RelativeHumidity:</span> " + RelativeHumidity;
                         }
                         if (node.Name == "Pressure")
                         {
                             Pressure = node.InnerText;
-                            LabelPressure.Text = "Pressure: " + Pressure;
+                            LabelPressure.Text = "<span style='font-weight: bold;'>Pressure:</span> " + Pressure;
                         }
                     }
                 }
@@ -215,9 +215,10 @@ namespace InfoWeather
             LabelForecast21.Text = "";
             LabelForecast3.Text = "";
             LabelForecast31.Text = "";
+            LabelLocationForecast.Text = "";
         }
 
-        protected void ButtonBestCity_Click(object sender, EventArgs e)
+        protected void ButtonBestCity_Click(object sender, EventArgs e)  //add array with a list of cities no data
         {
             string parameterToComp = null;
             string location = null;
@@ -243,7 +244,6 @@ namespace InfoWeather
             //store and compare the temperature with the rest of cities
             if (DropDownList1SelectSource.SelectedValue == "Global Weather")
             {
-                ImageLogoUW.ImageUrl = "";
                 for (i = 0; i < cityList.Count; i++)
                 {
                     string xmlInfo = soapService.GetWeather(cityList[i], DropDownList1SelectCountry.SelectedValue);
@@ -353,6 +353,7 @@ namespace InfoWeather
                     }
                     catch (Exception ex)
                     {
+                        LabelTest.Text = "Data Not Found best city";
                         System.Diagnostics.Debug.WriteLine("Data Not Found Best city GW", ex);
                     }
                 }
@@ -497,11 +498,15 @@ namespace InfoWeather
             JObject infoP = JObject.Parse(jsonWeatherData);
             try
             {
-                LabelLocation.Text = "Location: " + infoP["current_observation"]["display_location"]["full"];
-                LabelTime.Text = "Time: " + infoP["current_observation"]["local_time_rfc822"];
-                LabelWind.Text = "Wind: " + infoP["current_observation"]["wind_string"];
-                LabelVisibility.Text = "Visibility: " + infoP["current_observation"]["visibility_km"];
-                LabelSkyConditions.Text = "SkyConditions: " + infoP["current_observation"]["weather"];
+                LabelLocation.Text = "<span style='font-weight: bold;'>Location:</span> " + infoP["current_observation"]["display_location"]["full"];
+                LabelTime.Text = "<span style='font-weight: bold;'>Time:</span> " + infoP["current_observation"]["local_time_rfc822"];
+                LabelWind.Text = "<span style='font-weight: bold;'>Wind:</span> " + infoP["current_observation"]["wind_string"];
+                LabelVisibility.Text = "<span style='font-weight: bold;'>Visibility:</span> " + infoP["current_observation"]["visibility_km"];
+                LabelTemperature.Text = "<span style='font-weight: bold;'>Temperature:</span> " + infoP["current_observation"]["temperature_string"];
+                LabelDewPoint.Text = "<span style='font-weight: bold;'>DewPoint:</span> " + infoP["current_observation"]["dewpoint_string"];
+                LabelRelativeHumidity.Text = "<span style='font-weight: bold;'>RelativeHumidity:</span> " + infoP["current_observation"]["relative_humidity"];
+                LabelPressure.Text = "<span style='font-weight: bold;'>Pressure:</span> " + infoP["current_observation"]["pressure_mb"];
+                LabelSkyConditions.Text = "<span style='font-weight: bold;'>SkyConditions:</span> " + infoP["current_observation"]["weather"];
                 if (((string)infoP["current_observation"]["weather"]) != null)
                     ImgSkyConditions.Visible = true;
                 if (((string)infoP["current_observation"]["display_location"]["full"]) != null)
@@ -562,16 +567,14 @@ namespace InfoWeather
                         break;
                     case "Cloudy":
                         ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/i/cloudy.gif";
+                        break; 
+                    case "Scattered Clouds":
+                        ImgSkyConditions.ImageUrl = "http://icons.wxug.com/i/c/i/cloudy.gif";
                         break;
                     default:
                         System.Diagnostics.Debug.WriteLine("Not img");
                         break;
                 }
-
-                LabelTemperature.Text = "Temperature: " + infoP["current_observation"]["temperature_string"];
-                LabelDewPoint.Text = "DewPoint: " + infoP["current_observation"]["dewpoint_string"];
-                LabelRelativeHumidity.Text = "RelativeHumidity: " + infoP["current_observation"]["relative_humidity"];
-                LabelPressure.Text = "Pressure: " + infoP["current_observation"]["pressure_mb"];
             }
             catch (Exception ex)
             {
@@ -583,12 +586,14 @@ namespace InfoWeather
         {
             if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
             {
+                GetInfoWeather(null, new EventArgs()); //Also it show info weather of selected place, add flag to know if it clicked and dont clean parameters´,this way to avoid to execute this void two times
                 string info = ("http://api.wunderground.com/api/" + key + "/forecast/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue) + ".json";
                 var client = new WebClient();
                 string jsonWeatherData = client.DownloadString(info);
                 JObject infoP = JObject.Parse(jsonWeatherData);
                 try
                 {
+                    LabelLocationForecast.Text = LabelLocation.Text;
                     ImgForescast1.Visible = true;
                     ImgForescast12.Visible = true;
                     ImgForescast2.Visible = true;
@@ -618,7 +623,7 @@ namespace InfoWeather
                 {
                     System.Diagnostics.Debug.WriteLine(ex);
                     LabelTest.Text = "Data Not Found";
-                }
+                }  
             }
             else
             {

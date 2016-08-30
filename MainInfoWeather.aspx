@@ -133,13 +133,13 @@
                     </asp:DropDownList>
                     <asp:Button ID="ButtonBestCity" runat="server" OnClick="ButtonBestCity_Click" Text="Best City" />
                     <br />
-                    <asp:Label ID="LabelBestCityTemp" runat="server" Text="Best city"></asp:Label>
+                    <asp:Label ID="LabelBestCityTemp" runat="server" Text=""></asp:Label>
                 </asp:TableCell>
                 <asp:TableCell>
                     <asp:Button ID="ButtonForecast" runat="server" OnClick="ButtonForecast_Click" Text="Forecast" />
                 </asp:TableCell>
                 <asp:TableCell>
-                    
+                    <asp:Label ID="LabelLocationForecast" runat="server" Text=""></asp:Label>
                 </asp:TableCell>
             </asp:TableRow>
             <asp:TableRow 
