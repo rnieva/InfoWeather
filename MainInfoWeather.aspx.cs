@@ -26,12 +26,12 @@ namespace InfoWeather
                 DropDownList1SelectSource.Items.Add("Weather Underground");
                 DropDownList1SelectSource.SelectedValue = "Global Weather";
             }
-            CleanLabels(null, new EventArgs());
+            CleanLabels(null, new EventArgs());  // Clean labels and imagenes after click any button
             LabelTest.ForeColor = System.Drawing.Color.Red;
             ImgSkyConditions.Visible = false;
             ImgMap.Visible = false;
-            ChangeImgLogo(null, new EventArgs());       // Load the Data Source Logo
-            CountryDropList1(null, new EventArgs());  //Load list of Countries and leter list of cities
+            ChangeImgLogo(null, new EventArgs());     // Load the Data Source Logo
+            CountryDropList1(null, new EventArgs());  // Load list of Countries and leter list of cities
         }
         protected void CountryDropList1(object sender, EventArgs e)
         {
@@ -216,10 +216,12 @@ namespace InfoWeather
             LabelForecast3.Text = "";
             LabelForecast31.Text = "";
             LabelLocationForecast.Text = "";
+            LabelBestCityTemp.Text = "";
         }
 
-        protected void ButtonBestCity_Click(object sender, EventArgs e)  //add array with a list of cities no data
+        protected void ButtonBestCity_Click(object sender, EventArgs e)
         {
+            List<string> citiesNoData = new List<string>();
             string parameterToComp = null;
             string location = null;
             string locationBest = null;
@@ -353,12 +355,20 @@ namespace InfoWeather
                     }
                     catch (Exception ex)
                     {
-                        LabelTest.Text = "Data Not Found best city";
+                        citiesNoData.Add(cityList[i] + " - ");
                         System.Diagnostics.Debug.WriteLine("Data Not Found Best city GW", ex);
+                        LabelTest.Text = "Data Not Found";
                     }
                 }
                 if (parameterBest != null)
-                    LabelBestCityTemp.Text = "Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+                {
+                    LabelBestCityTemp.Text = "<br>Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+                    if (citiesNoData[1] != null)
+                    {
+                        string citiesNoDat = string.Join("", citiesNoData.ToArray());
+                        LabelBestCityTemp.Text = LabelBestCityTemp.Text + "<br> No data of: " + citiesNoDat;
+                    }
+                }
             } //end if (DropDownList1SelectSource.SelectedValue == "Global Weather)
             if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
             {
@@ -383,9 +393,10 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                LabelTest.Text = "Data Not Found best city";
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("Temperature Not Found Best city UW", ex);
                             }
                             break;
                         case "Wind":
@@ -401,9 +412,10 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                LabelTest.Text = "Data Not Found best city";
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("Wind Not Found Best city UW", ex);
                             }
                             break;
                         case "Visibility":
@@ -421,8 +433,8 @@ namespace InfoWeather
                             }
                             catch (Exception ex)
                             {
-                                System.Diagnostics.Debug.WriteLine(ex);
-                                LabelTest.Text = "Data Not Found best city";
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("Visibility Not Found Best city UW", ex);
                             }
                             break;
                         case "DewPoint":
@@ -440,8 +452,8 @@ namespace InfoWeather
                             }
                             catch (Exception ex)
                             {
-                                System.Diagnostics.Debug.WriteLine(ex);
-                                LabelTest.Text = "Data Not Found best city";
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("DewPoint Not Found Best city UW", ex);
                             }
                             break;
                         case "RelativeHumidity":
@@ -457,9 +469,10 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                System.Diagnostics.Debug.WriteLine("Data Not Found Best city WU");
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("RelativeHumidity Not Found Best city WU", ex);
                             }
                             break;
                         case "Pressure":
@@ -475,9 +488,10 @@ namespace InfoWeather
                                     locationBest = (string)infoP["current_observation"]["display_location"]["full"];
                                 }
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
-                                LabelTest.Text = "Data Not Found best city";
+                                citiesNoData.Add(cityList[i] + " - ");
+                                System.Diagnostics.Debug.WriteLine("Pressure Not Found Best city WU", ex);
                             }
                             break;
                         default:
@@ -486,8 +500,15 @@ namespace InfoWeather
                     }
                 }
                 if (parameterBest != null)
-                    LabelBestCityTemp.Text = "Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
-            } //end if (DropDownList1SelectSource.SelectedValue == "Weather Underground") 
+                {
+                    LabelBestCityTemp.Text = "<br>Most " + DropDownListParameterToCompa.SelectedValue + " City: <span style='font-weight: bold;'>" + parameterBest + "</span>" + " in: <span style='font-weight: bold;'>" + locationBest + " </span>";
+                    if (citiesNoData[1] != null)
+                    {
+                        string citiesNoDat = string.Join("", citiesNoData.ToArray());
+                        LabelBestCityTemp.Text = LabelBestCityTemp.Text + "<br> No data of: " + citiesNoDat;
+                    }
+                }
+           } //end if (DropDownList1SelectSource.SelectedValue == "Weather Underground") 
         }
 
         protected void GetInfoWeatherUnderground()
@@ -512,7 +533,6 @@ namespace InfoWeather
                 if (((string)infoP["current_observation"]["display_location"]["full"]) != null)
                 {
                     ImgMap.Visible = true;
-                    //ImgMap.ImageUrl = "http://api.wunderground.com/api/" + key + "/radar/satellite/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue + ".gif"; //radar + satellite imagen without animated 
                     ImgMap.ImageUrl = "http://api.wunderground.com/api/" + key + "/animatedradar/animatedsatellite/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue + ".gif?num=6&delay=50&interval=30";
                 }
                 switch ((string)infoP["current_observation"]["weather"])
@@ -586,25 +606,18 @@ namespace InfoWeather
         {
             if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
             {
-                GetInfoWeather(null, new EventArgs()); //Also it show info weather of selected place, add flag to know if it clicked and dont clean parameters´,this way to avoid to execute this void two times
+                GetInfoWeather(null, new EventArgs()); //Also it show info weather of selected place, could be added a flag to know if it clicked and dont clean parameters´,this way to avoid to execute this void two times
                 string info = ("http://api.wunderground.com/api/" + key + "/forecast/q/" + DropDownList1SelectCountry.SelectedValue + "/" + DropDownList2SelectCity.SelectedValue) + ".json";
                 var client = new WebClient();
                 string jsonWeatherData = client.DownloadString(info);
                 JObject infoP = JObject.Parse(jsonWeatherData);
                 try
                 {
-                    LabelLocationForecast.Text = LabelLocation.Text;
-                    ImgForescast1.Visible = true;
-                    ImgForescast12.Visible = true;
-                    ImgForescast2.Visible = true;
-                    ImgForescast21.Visible = true;
-                    ImgForescast3.Visible = true;
-                    ImgForescast31.Visible = true;
-                    LabelForecast1.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][0]["title"];
+                    LabelForecast1.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][0]["title"] + "<br>High: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][1]["high"]["celsius"] + "C" + "<br>Low: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][1]["low"]["celsius"] + "C";
                     LabelForecast12.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][1]["title"];
-                    LabelForecast2.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][2]["title"];
+                    LabelForecast2.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][2]["title"] + "<br>High: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][1]["high"]["celsius"] + "C" + "<br>Low: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][2]["low"]["celsius"] + "C";
                     LabelForecast21.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][3]["title"];
-                    LabelForecast3.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][4]["title"];
+                    LabelForecast3.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][4]["title"] + "<br>High: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][1]["high"]["celsius"] + "C" + "<br>Low: " + (string)infoP["forecast"]["simpleforecast"]["forecastday"][3]["low"]["celsius"] + "C";
                     LabelForecast31.Text = (string)infoP["forecast"]["txt_forecast"]["forecastday"][5]["title"];
                     string link1 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][0]["icon_url"];
                     ImgForescast1.ImageUrl = link1;
@@ -618,6 +631,13 @@ namespace InfoWeather
                     ImgForescast3.ImageUrl = link3;
                     string link31 = (string)infoP["forecast"]["txt_forecast"]["forecastday"][5]["icon_url"];
                     ImgForescast31.ImageUrl = link31;
+                    LabelLocationForecast.Text = LabelLocation.Text;
+                    ImgForescast1.Visible = true;
+                    ImgForescast12.Visible = true;
+                    ImgForescast2.Visible = true;
+                    ImgForescast21.Visible = true;
+                    ImgForescast3.Visible = true;
+                    ImgForescast31.Visible = true;
                 }
                 catch (Exception ex)
                 {
