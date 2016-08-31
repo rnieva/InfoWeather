@@ -1,5 +1,5 @@
 # InfoWeather
- :construction: A self-taught project to learn more about Web Services, XML, Json. Show weather conditions for cities from two sources, using SOAP and REST managing XML and Json for get the information.
+ A self-taught project to learn more about Web Services, XML, Json. Show weather conditions for cities from two sources, using SOAP and REST managing XML and Json for get the information.
  
  **Features:**
  - Provide the weather information of a city selected
@@ -20,3 +20,8 @@
  **Example**
 
 ![alt tag](https://raw.github.com/rnieva/infoweather/master/imgs/ExampleInfo.png)
+
+**Improvements:**
+- Design improvements
+- Added more weathers sources
+- Added webcams
