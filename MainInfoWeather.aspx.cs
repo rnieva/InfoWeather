@@ -16,15 +16,14 @@ namespace InfoWeather
 {
     public partial class MainInfoWeather : System.Web.UI.Page
     {
-
-        public string key = ""; //key for WU
+        public string key = "45e006c0511c9d9a"; // key for WU
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 DropDownList1SelectSource.Items.Add("Global Weather");
                 DropDownList1SelectSource.Items.Add("Weather Underground");
-                DropDownList1SelectSource.SelectedValue = "Global Weather";
+                DropDownList1SelectSource.SelectedValue = "Weather Underground";
             }
             CleanLabels(null, new EventArgs());  // Clean labels and imagenes after click any button
             LabelTest.ForeColor = System.Drawing.Color.Red;
@@ -95,6 +94,7 @@ namespace InfoWeather
                 ImageLogoUW.ImageUrl = "https://icons.wxug.com/logos/PNG/wundergroundLogo_4c.png";
             }
         }
+
         protected void GetInfoWeather(object sender, EventArgs e)
         {
             if (DropDownList1SelectSource.SelectedValue == "Global Weather")
@@ -349,7 +349,6 @@ namespace InfoWeather
                                             break;
                                     }
                                 }
-
                             }
                         }
                     }
@@ -602,6 +601,7 @@ namespace InfoWeather
                 LabelTest.Text = "Data Not Found";
             }
         }
+
         protected void ButtonForecast_Click(object sender, EventArgs e)
         {
             if (DropDownList1SelectSource.SelectedValue == "Weather Underground")
