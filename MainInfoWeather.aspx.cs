@@ -16,7 +16,7 @@ namespace InfoWeather
 {
     public partial class MainInfoWeather : System.Web.UI.Page
     {
-        public string key = "45e006c0511c9d9a"; // key for WU
+        public string key = ""; // key for WU
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
